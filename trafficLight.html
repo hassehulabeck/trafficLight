@@ -1,0 +1,100 @@
+<html>
+<head>
+  <style>
+    body {
+      padding: 4em;
+    }
+    #box {
+      width: 100px;
+      min-height: 300px;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .light {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin 6px;
+    }
+    .black {
+      background-color: black;
+    }
+    .red {
+      background-color: red;
+    }
+    .yellow {
+      background-color: yellow;
+    }
+    .green {
+      background-color: green;
+    }
+  </style>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+      var boxChildren;
+      var lightOn = 0;
+      var lights = ['red', 'yellow', 'green'];
+      var btn = document.getElementById("switcher")
+
+      function turnTheLightsOn() {
+        var box = document.getElementById('box');
+        boxChildren = box.children;
+        for (let i = 0; i < boxChildren.length; i++) {
+          boxChildren[i].classList.remove("green", "yellow", "red");
+        }
+        boxChildren[lightOn].classList.add(lights[lightOn]);
+      }
+
+      // timerstyrd.
+      // Det svåra problemet - att få varierande interval.
+      var timer = setInterval(loop, 1000);
+
+      // Men stoppar när man klickar på knappen.
+      btn.addEventListener('click', stopTheTraffic);
+
+      function stopTheTraffic() {
+        clearInterval(timer);
+      }
+
+      function loop() {
+        turnTheLightsOn();
+        lightOn ++;        // Måste ljuset alltid börja på gult.
+        if (lightOn > 2)
+          lightOn = 0;
+
+
+
+        // Kan vi få ljuset att vandra upp och ner, och ner och upp,
+        // istället för runt och runt?
+
+      }
+
+
+
+
+      // Klick på knapp
+/*      btn.addEventListener('click', () => {
+        lightOn ++;
+        if (lightOn > 2)
+          lightOn = 0;
+
+        turnTheLightsOn();
+      });
+      */
+    });
+  </script>
+</head>
+<body>
+  <div id="box">
+    <div class = "light black red"></div>
+    <div class = "light black yellow"></div>
+    <div class = "light black green"></div>
+  </div>
+  <button id ="switcher">Växla</button>
+</body>
+</html>
